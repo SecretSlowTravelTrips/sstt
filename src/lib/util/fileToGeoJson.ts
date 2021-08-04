@@ -1,9 +1,10 @@
 import { gpx } from '@tmcw/togeojson';
+import type { AllGeoJSON } from '@turf/turf';
 
-export default async (file) => {
+export default async (file): Promise<AllGeoJSON> => {
   return await new Promise((resolve, reject) => {
     const fileExtension = file.name.split('.').pop();
-    let geojson;
+    let geojson: AllGeoJSON;
 
     if (file && (fileExtension === 'geojson' || fileExtension === 'gpx')) {
       const reader = new FileReader();

@@ -6,15 +6,23 @@
     lon: 4.5
   };
   let files;
-  let downloadButtons = ['Cafe', 'Bankjes', 'Interessepunten', 'Shop', 'Bakker', 'Route'];
+  let config = {
+    overpassQueryButtons : [{
+
+  
+      name: "Supermarket & convenience store"
+    }
+    ]
+  }
 </script>
 
 <div class="container">
   <FileInput bind:files />
   {#if files && files[0]}
-    {#each downloadButtons as name, i}
-      <DownloadButton on:click={() => queryAndDownload(files[0], 'qeuery', 'testFile')} {name}
-        >{name}</DownloadButton
+    {#each config.overpassQueryButtons as name, i}
+      <DownloadButton
+        on:click={() => queryAndDownload(files[0], config, files[0].name + '---' + name)}
+        {name}>{name}</DownloadButton
       >
     {/each}
   {/if}

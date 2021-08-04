@@ -29,6 +29,7 @@
   "dependencies": {
     "@tmcw/togeojson": "^4.5.0",
     "@turf/turf": "^6.5.0",
-    "maplibre-gl": "^1.15.2"
+    "maplibre-gl": "^1.15.2",
+    "osmtogeojson": "^3.0.0-beta.4"
   }
 }
