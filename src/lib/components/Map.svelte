@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { setContext, onMount } from 'svelte';
   import maplibregl from 'maplibre-gl';
   export let lat;
@@ -13,7 +13,7 @@
   setContext(key, {
     getMap: () => map
   });
-  maplibregl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+  maplibregl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN.toString();
   onMount(() => {
     map = new maplibregl.Map({
       container,
