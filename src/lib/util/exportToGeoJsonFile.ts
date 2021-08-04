@@ -1,19 +1,13 @@
 export default (geoJsonData, filenameWithoutExtension: string) => {
   const filename = filenameWithoutExtension + '.geojson';
 
-  const blob = new Blob([geoJsonData], { type: 'text/json' });
-  const link = document.createElement('a');
+  let dataStr = JSON.stringify(geoJsonData);
+  let dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
-  link.download = filename;
-  link.href = window.URL.createObjectURL(blob);
-  link.dataset.downloadurl = ['text/json', link.download, link.href].join(':');
-
-  const evt = new MouseEvent('click', {
-    view: window,
-    bubbles: true,
-    cancelable: true
-  });
-
-  link.dispatchEvent(evt);
-  link.remove();
+  let linkElement = document.createElement('a');
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', filename);
+  linkElement.setAttribute('download', filename);
+  linkElement.click();
+  linkElement.remove();
 };
