@@ -1,5 +1,5 @@
 <script>
-  import { Map, FileInput, DownloadButton } from '$lib/components/index';
+  import { FileInput, DownloadButton } from '$lib/components/index';
   import queryAndDownload from '$lib/util/queryAndDownload';
   let center = {
     lat: 51,
@@ -72,7 +72,11 @@
     {#each config.overpassQueryButtons as configuration, i}
       <DownloadButton
         on:click={() =>
-          queryAndDownload(files[0], configuration.query, files[0].name + ' --- ' + configuration.name)}
+          queryAndDownload(
+            files[0],
+            configuration.query,
+            files[0].name + ' --- ' + configuration.name
+          )}
         name={configuration.name}
       >
         {configuration.name}
@@ -81,19 +85,9 @@
   {/if}
 </div>
 
-<!-- <div class="map-section">
-  <Map lat={center.lat} lon={center.lon} recenterOnUpdate zoom="8" />
-</div> -->
 <style>
   .container {
     display: flex;
     flex-direction: column;
-  }
-  .map-section {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    top: 20vh;
-    width: 100%;
   }
 </style>
