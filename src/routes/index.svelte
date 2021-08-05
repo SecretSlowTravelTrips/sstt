@@ -1,68 +1,19 @@
-<script>
+<script lang="ts">
   import { FileInput, DownloadButton } from '$lib/components/index';
   import queryAndDownload from '$lib/util/queryAndDownload';
+  import { config } from '$lib/util/overpass';
+  import { fetchWikidata } from '$lib/util/wikidata';
+  import exportToGeoJSONFile from '$lib/util/exportToGeoJsonFile';
   let center = {
     lat: 51,
     lon: 4.5
   };
   let files;
-  let config = {
-    overpassQueryButtons: [
-      {
-        name: 'Supermarket and convenience store',
-        query: [
-          {
-            shop: 'convenience'
-          },
-          {
-            shop: 'supermarket'
-          }
-        ]
-      },
-      {
-        name: 'Bicycle shop',
-        query: [
-          {
-            shop: 'bicycle'
-          }
-        ]
-      },
-      {
-        name: 'Playground',
-        query: [
-          {
-            leisure: 'playground'
-          }
-        ]
-      },
-      {
-        name: 'Bakery',
-        query: [
-          {
-            shop: 'bakery'
-          }
-        ]
-      },
-      {
-        name: 'Café and restaurant',
-        query: [
-          {
-            amenity: 'cafe'
-          },
-          {
-            amenity: 'restaurant'
-          }
-        ]
-      },
-      {
-        name: 'Benches',
-        query: [
-          {
-            amenity: 'bench'
-          }
-        ]
-      }
-    ]
+
+  const removeFilenameExtention = (filename) => {
+    const chunks = filename.split('.');
+    chunks.pop();
+    return chunks.join('.');
   };
 </script>
 
@@ -82,6 +33,16 @@
         {configuration.name}
       </DownloadButton>
     {/each}
+    <DownloadButton
+      on:click={async () =>
+        exportToGeoJSONFile(
+          await fetchWikidata(files[0]),
+          `${removeFilenameExtention(files[0].name)}---wikidata`
+        )}
+      name="wikidata"
+    >
+      Wikidata
+    </DownloadButton>
   {/if}
 </div>
 

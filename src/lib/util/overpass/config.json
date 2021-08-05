@@ -1,0 +1,58 @@
+{
+  "overpassQueryButtons": [
+    {
+      "name": "Supermarket and convenience store",
+      "query": [
+        {
+          "shop": "convenience"
+        },
+        {
+          "shop": "supermarket"
+        }
+      ]
+    },
+    {
+      "name": "Bicycle shop",
+      "query": [
+        {
+          "shop": "bicycle"
+        }
+      ]
+    },
+    {
+      "name": "Playground",
+      "query": [
+        {
+          "leisure": "playground"
+        }
+      ]
+    },
+    {
+      "name": "Bakery",
+      "query": [
+        {
+          "shop": "bakery"
+        }
+      ]
+    },
+    {
+      "name": "Café and restaurant",
+      "query": [
+        {
+          "amenity": "cafe"
+        },
+        {
+          "amenity": "restaurant"
+        }
+      ]
+    },
+    {
+      "name": "Benches",
+      "query": [
+        {
+          "amenity": "bench"
+        }
+      ]
+    }
+  ]
+}

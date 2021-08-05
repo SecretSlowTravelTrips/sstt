@@ -36,6 +36,6 @@ export default async (file, overpassQuery: Array<any>, filename) => {
   let customGeoJSON = osmtogeojson(data);
   console.log(customGeoJSON);
 
-  await exportToGeoJsonFile(customGeoJSON, filename);
+  exportToGeoJsonFile(customGeoJSON, filename);
   return;
 };
