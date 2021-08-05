@@ -1,6 +1,6 @@
 import { buffer, Feature, Polygon } from '@turf/turf';
 
-export default (geoJSON, radius: number)  => {
+export default (geoJSON, radius: number) => {
   let feature: Feature;
   if (geoJSON.type === 'FeatureCollection') {
     feature = geoJSON.features[0];
