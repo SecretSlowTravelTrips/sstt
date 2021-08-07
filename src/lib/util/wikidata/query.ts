@@ -4,9 +4,9 @@ import SPARQLQueryDispatcher from './SPARQLQueryDispatcher';
 import buildQuery from './buildQuery';
 import toGeoJSON from './toGeoJSON';
 import geoJSONToPolygon from '$lib/util/geoJsonToPolygon';
-import { AllGeoJSON, bbox, Point, Properties, within } from '@turf/turf';
+import { AllGeoJSON, bbox, FeatureCollection, Point, Properties, within } from '@turf/turf';
 
-export default async (file): FeatureCollection<Point, Properties> => {
+export default async (file): Promise<FeatureCollection<Point, Properties>> => {
   const queryDispatcher = new SPARQLQueryDispatcher();
   const createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
 
