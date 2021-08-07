@@ -1,26 +1,25 @@
 import { gpx } from '@tmcw/togeojson';
 import type { AllGeoJSON } from '@turf/turf';
 
-export default async (file): Promise<AllGeoJSON> => {
-  return await new Promise((resolve, reject) => {
+export default (file: File): Promise<AllGeoJSON> => {
+  return new Promise((resolve, reject) => {
     const fileExtension = file.name.split('.').pop();
-    let geojson: AllGeoJSON;
 
     if (file && (fileExtension === 'geojson' || fileExtension === 'gpx')) {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
-        let contentText = reader.result;
-        if (typeof contentText === 'string') {
+        const contentText = <string>reader.result;
+        if (contentText) {
           if (fileExtension === 'geojson') {
-            geojson = JSON.parse(contentText);
-          } else if (fileExtension === 'gpx') {
-            let contentXml = new DOMParser().parseFromString(contentText, 'text/xml');
-            geojson = gpx(contentXml);
+            return resolve(JSON.parse(contentText));
           }
+          return resolve(gpx(new DOMParser().parseFromString(contentText, 'text/xml')));
         }
-        resolve(geojson);
+        return reject(new Error('Could not read the provided file.'));
       });
       reader.readAsText(file);
+    } else {
+      return reject(new Error('Format not supported. Please provide a .geojson or .gpx.'));
     }
   });
 };
