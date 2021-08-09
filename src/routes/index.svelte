@@ -11,6 +11,8 @@
   let files;
   let radiusInM = 1000;
   let radiusInKm: number;
+  let prefLangs: string = 'fr, nl, en';
+  let prefLangsArray: string[];
 
   const maxRadius = 50000;
 
@@ -19,6 +21,10 @@
     else if (radiusInM > maxRadius) radiusInM = maxRadius;
 
     radiusInKm = radiusInM / 1000;
+  }
+
+  $: {
+    if (prefLangs) prefLangsArray = prefLangs.split(/[ ,]+/);
   }
 
   const removeFilenameExtention = (filename) => {
@@ -41,6 +47,7 @@
     </div>
   </div>
   {#if files && files[0]}
+    <h2>Overpass</h2>
     {#each config.overpassQueryButtons as configuration, i}
       <DownloadButton
         on:click={() =>
@@ -55,10 +62,17 @@
         {configuration.name}
       </DownloadButton>
     {/each}
+    <h2>Wikidata</h2>
+    <label>
+      <input type="text" bind:value={prefLangs} />
+      <div>
+        <small>Enter each language code and separate them by a comma (,).</small>
+      </div>
+    </label>
     <DownloadButton
       on:click={async () =>
         exportToGeoJSONFile(
-          await fetchWikidata(files[0], radiusInKm),
+          await fetchWikidata(files[0], radiusInKm, prefLangsArray),
           `${removeFilenameExtention(files[0].name)}---wikidata`
         )}
       name="wikidata"

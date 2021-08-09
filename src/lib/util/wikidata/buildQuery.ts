@@ -8,8 +8,11 @@ const buildPredicate = (instanceOf: boolean, subclassOf: boolean) => {
   return instanceOf && subclassOf ? `${predicate.join('/')}?` : predicate.join('');
 };
 
-export default (westCorner: Array<number>, eastCorner: Array<number>): string => {
-  const langs = ['fr', 'nl', 'en'];
+export default (
+  westCorner: Array<number>,
+  eastCorner: Array<number>,
+  langs = ['fr', 'nl', 'en']
+): string => {
   const wikiArticles = langs.reduce((acc, lang) => {
     const key = `?${lang}Article`;
     acc[key] = `OPTIONAL {

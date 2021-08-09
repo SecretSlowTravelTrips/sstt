@@ -5,7 +5,11 @@ import toGeoJSON from './toGeoJSON';
 import geoJSONToPolygon from '$lib/util/geoJsonToPolygon';
 import { AllGeoJSON, bbox, FeatureCollection, Point, Properties, within } from '@turf/turf';
 
-export default async (file, radius = 1): Promise<FeatureCollection<Point, Properties>> => {
+export default async (
+  file,
+  radius = 1,
+  langs: string[]
+): Promise<FeatureCollection<Point, Properties>> => {
   const queryDispatcher = new SPARQLQueryDispatcher();
   const createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
 
@@ -13,7 +17,7 @@ export default async (file, radius = 1): Promise<FeatureCollection<Point, Proper
   const bbx = bbox(polygon);
 
   const data = toGeoJSON(
-    await queryDispatcher.query(buildQuery([bbx[0], bbx[1]], [bbx[2], bbx[3]]))
+    await queryDispatcher.query(buildQuery([bbx[0], bbx[1]], [bbx[2], bbx[3]], langs))
   );
 
   return within(data, polygon);
