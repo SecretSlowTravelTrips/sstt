@@ -15,7 +15,7 @@
   const maxRadius = 50000;
 
   $: {
-    if (radiusInM < 0) radiusInM = 0;
+    if (radiusInM < 1) radiusInM = 1;
     else if (radiusInM > maxRadius) radiusInM = maxRadius;
 
     radiusInKm = radiusInM / 1000;
@@ -36,6 +36,9 @@
     <label>
       Within <input type="number" bind:value={radiusInM} max={maxRadius} /> meters
     </label>
+    <div>
+      <small>Only values between 1 and 50000 are allowed</small>
+    </div>
   </div>
   {#if files && files[0]}
     {#each config.overpassQueryButtons as configuration, i}
