@@ -1,3 +1,13 @@
+import config from './config.json';
+
+const subclass = 'wdt:P279';
+const instance = 'wdt:P31';
+const buildPredicate = (instanceOf: boolean, subclassOf: boolean) => {
+  const predicate = [instanceOf ? instance : '', subclassOf ? subclass : ''];
+
+  return instanceOf && subclassOf ? `${predicate.join('/')}?` : predicate.join('');
+};
+
 export default (westCorner: Array<number>, eastCorner: Array<number>): string => {
   const langs = ['fr', 'nl', 'en'];
   const wikiArticles = langs.reduce((acc, lang) => {
@@ -10,6 +20,10 @@ export default (westCorner: Array<number>, eastCorner: Array<number>): string =>
   }, {});
 
   const ignoreNoWikipedia = true;
+
+  const excludeItemsStatements = config.map(
+    (c) => `FILTER NOT EXISTS {?instance ${buildPredicate(c.instanceOf, c.subclassOf)} wd:${c.id}.}`
+  );
 
   return `
   SELECT ?place ?location ?placeLabel ?instanceLabel ?image ${Object.keys(wikiArticles).join(
@@ -24,8 +38,10 @@ export default (westCorner: Array<number>, eastCorner: Array<number>): string =>
     eastCorner[1]
   })"^^geo:wktLiteral .
       }
-    OPTIONAL { ?place wdt:P31 ?instance }
-    FILTER NOT EXISTS {?instance wdt:P279 wd:Q34442.}
+    OPTIONAL {
+      ?place wdt:P31 ?instance.
+      ${excludeItemsStatements.join('\n')}
+    }
     OPTIONAL { ?place wdt:P18 ?image. }
     ${Object.values(wikiArticles).join('\n')}
     BIND(COALESCE(${Object.keys(wikiArticles).join(', ')}, "") AS ?prefArticle)

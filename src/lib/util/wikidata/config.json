@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Road",
+    "id": "Q34442",
+    "instanceOf": true,
+    "subclassOf": true
+  },
+  {
+    "name": "Cemetery",
+    "id": "Q39614",
+    "instanceOf": true,
+    "subclassOf": false
+  },
+  {
+    "name": "Accident",
+    "id": "Q171558",
+    "instanceOf": true,
+    "subclassOf": false
+  },
+  {
+    "name": "Farmhouse",
+    "id": "Q489357",
+    "instanceOf": true,
+    "subclassOf": false
+  },
+  {
+    "name": "Municipality section",
+    "id": "Q2785216",
+    "instanceOf": true,
+    "subclassOf": false
+  },
+  {
+    "name": "Viaduc",
+    "id": "Q181348",
+    "instanceOf": true,
+    "subclassOf": false
+  },
+  {
+    "name": "Railway tunnel",
+    "id": "Q1311958",
+    "instanceOf": true,
+    "subclassOf": false
+  },
+  {
+    "name": "Prisons",
+    "id": "Q40357",
+    "instanceOf": true,
+    "subclassOf": false
+  }
+]

@@ -1,4 +1,3 @@
-import exportToGeoJsonFile from '$lib/util/exportToGeoJsonFile';
 import fileToGeoJSON from '$lib/util/fileToGeoJson';
 import SPARQLQueryDispatcher from './SPARQLQueryDispatcher';
 import buildQuery from './buildQuery';
