@@ -5,10 +5,10 @@ import geoJSONToPolygon from '$lib/util/geoJsonToPolygon';
 import { AllGeoJSON, feature, featureCollection, geometry, point, simplify } from '@turf/turf';
 import osmtogeojson from 'osmtogeojson';
 
-export default async (file, overpassQuery: Array<any>, filename) => {
+export default async (file, overpassQuery: Array<any>, filename, radius = 1) => {
   let createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
 
-  let polygon = geoJSONToPolygon(createdGeoJson, 2);
+  let polygon = geoJSONToPolygon(createdGeoJson, radius);
   console.log(polygon);
 
   let simplifiedPolygon = simplify(polygon, { highQuality: true, mutate: false, tolerance: 0.05 });
