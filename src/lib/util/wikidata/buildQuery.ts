@@ -25,7 +25,7 @@ export default (
   const ignoreNoWikipedia = true;
 
   const excludeItemsStatements = config.map(
-    (c) => `FILTER NOT EXISTS {?instance ${buildPredicate(c.instanceOf, c.subclassOf)} wd:${c.id}.}`
+    (c) => `FILTER NOT EXISTS {?place ${buildPredicate(c.instanceOf, c.subclassOf)} wd:${c.id}.}`
   );
 
   return `
@@ -43,8 +43,8 @@ export default (
       }
     OPTIONAL {
       ?place wdt:P31 ?instance.
-      ${excludeItemsStatements.join('\n')}
     }
+    ${excludeItemsStatements.join('\n')}
     OPTIONAL { ?place wdt:P18 ?image. }
     ${Object.values(wikiArticles).join('\n')}
     BIND(COALESCE(${Object.keys(wikiArticles).join(', ')}, "") AS ?prefArticle)

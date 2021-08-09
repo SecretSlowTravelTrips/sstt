@@ -9,42 +9,42 @@
     "name": "Cemetery",
     "id": "Q39614",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   },
   {
     "name": "Accident",
     "id": "Q171558",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   },
   {
     "name": "Farmhouse",
     "id": "Q489357",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   },
   {
     "name": "Municipality section",
     "id": "Q2785216",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   },
   {
     "name": "Viaduc",
     "id": "Q181348",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   },
   {
     "name": "Railway tunnel",
     "id": "Q1311958",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   },
   {
     "name": "Prisons",
     "id": "Q40357",
     "instanceOf": true,
-    "subclassOf": false
+    "subclassOf": true
   }
 ]
