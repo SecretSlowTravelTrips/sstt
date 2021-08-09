@@ -8,7 +8,7 @@ import osmtogeojson from 'osmtogeojson';
 export default async (file, overpassQuery: Array<any>, filename) => {
   let createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
 
-  let polygon = geoJSONToPolygon(createdGeoJson, 10);
+  let polygon = geoJSONToPolygon(createdGeoJson, 2);
   console.log(polygon);
 
   let simplifiedPolygon = simplify(polygon, { highQuality: true, mutate: false, tolerance: 0.05 });
