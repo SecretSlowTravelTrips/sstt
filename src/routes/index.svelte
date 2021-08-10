@@ -1,6 +1,6 @@
 <script lang="ts">
   import { FileInput, DownloadButton } from '$lib/components/index';
-  import queryAndDownload from '$lib/util/queryAndDownload';
+  import { queryAndDownload } from '$lib/util/overpass';
   import { config } from '$lib/util/overpass';
   import { fetchWikidata } from '$lib/util/wikidata';
   import exportToGeoJSONFile from '$lib/util/exportToGeoJsonFile';
@@ -54,7 +54,7 @@
           queryAndDownload(
             files[0],
             configuration.query,
-            files[0].name + ' --- ' + configuration.name,
+            `${removeFilenameExtention(files[0].name)}---${configuration.name}`,
             radiusInKm
           )}
         name={configuration.name}
