@@ -1,14 +1,12 @@
-import exportToGeoJsonFile from '$lib/util/exportToGeoJsonFile';
-import fetchOverpass from '$lib/util/fetchOverpass';
-import fileToGeoJSON from '$lib/util/fileToGeoJson';
-import geoJSONToPolygon from '$lib/util/geoJsonToPolygon';
-import { AllGeoJSON, feature, featureCollection, geometry, point, simplify } from '@turf/turf';
+import { AllGeoJSON, simplify } from '@turf/turf';
 import osmtogeojson from 'osmtogeojson';
+import { exportToGeoJsonFile, fileToGeoJSON, geoJsonToPolygon } from '$lib/util';
+import fetchOverpass from '$lib/util/overpass/fetchOverpass';
 
 export default async (file, overpassQuery: Array<any>, filename, radius = 1) => {
   let createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
 
-  let polygon = geoJSONToPolygon(createdGeoJson, radius);
+  let polygon = geoJsonToPolygon(createdGeoJson, radius);
   console.log(polygon);
 
   let simplifiedPolygon = simplify(polygon, { highQuality: true, mutate: false, tolerance: 0.05 });
@@ -24,11 +22,12 @@ export default async (file, overpassQuery: Array<any>, filename, radius = 1) => 
 
   overpassQuery.map(
     (overpassQueryObject) =>
-      (middleQuery += `way["${Object.keys(overpassQueryObject)[0]}"="${
+      (middleQuery += `nwr["${Object.keys(overpassQueryObject)[0]}"="${
         overpassQueryObject[Object.keys(overpassQueryObject)[0]]
       }"](poly:"${polygonstring}");`)
   );
-  const query = `[out:json][timeout:150];(${middleQuery});(._;>;);out meta;`;
+
+  const query = `[out:json][timeout:150];(${middleQuery});(._;>;);out center;`;
 
   const data = await fetchOverpass(query);
   console.log(data);
