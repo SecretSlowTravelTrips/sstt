@@ -1,4 +1,6 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![workflow](https://github.com/SecretSlowTravelTrips/sstt/actions/workflows/main.yml/badge.svg)
+
 # SSTT Query Service
 
 Use this Query service to download geojson files with the selected data.
