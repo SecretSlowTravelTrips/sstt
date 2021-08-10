@@ -9,6 +9,7 @@ Use this Query service to download geojson files with the selected data.
 
 - [Node](https://nodejs.org/en/download/) version >=14 installed
 - This project uses the [Yarn 1](https://yarnpkg.com/getting-started/install) package manager
+- Linux (for Windows use WSL, because Svelte Kit)
 
 
 ## Usage
