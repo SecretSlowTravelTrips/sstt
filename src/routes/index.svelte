@@ -54,7 +54,7 @@
           queryAndDownload(
             files[0],
             configuration.query,
-            `${removeFilenameExtention(files[0].name)}---${configuration.name}`,
+            `${removeFilenameExtention(files[0].name)}---${radiusInM}m---${configuration.name}`,
             radiusInKm
           )}
         name={configuration.name}
@@ -73,7 +73,7 @@
       on:click={async () =>
         exportToGeoJSONFile(
           await fetchWikidata(files[0], radiusInKm, prefLangsArray),
-          `${removeFilenameExtention(files[0].name)}---wikidata`
+          `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
         )}
       name="wikidata"
     >
