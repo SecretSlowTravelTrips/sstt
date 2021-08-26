@@ -4,6 +4,8 @@
   import { config } from '$lib/util/overpass';
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import exportToGeoJSONFile from '$lib/util/exportToGeoJsonFile';
+  import { Input } from '$lib/components/UI';
+
   let center = {
     lat: 51,
     lon: 4.5
@@ -53,8 +55,8 @@
     <FileInput bind:files />
   </div>
   <div class="raduis">
-    <label>
-      Within <input type="number" bind:value={radiusInM} max={maxRadius} /> meters
+    <label for="radius">
+      Within <Input type="number" id="radius" bind:value={radiusInM} max={maxRadius} /> meters
     </label>
     <div>
       <small>Only values between 1 and 50000 are allowed</small>
@@ -77,8 +79,8 @@
       </DownloadButton>
     {/each}
     <h2>Wikidata</h2>
-    <label>
-      <input type="text" bind:value={prefLangs} />
+    <label for="pref-langs">
+      <Input type="text" id="pref-langs" bind:value={prefLangs} />
       <div>
         <small>Enter each language code and separate them by a comma (,).</small>
       </div>
