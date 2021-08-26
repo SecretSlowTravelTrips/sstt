@@ -1,3 +1,5 @@
+import type Wikidata from './wikidata';
+
 export default class SPARQLQueryDispatcher {
   constructor(private endpoint: string = 'https://query.wikidata.org/sparql') {}
 
@@ -11,10 +13,10 @@ export default class SPARQLQueryDispatcher {
   }
 
   // https://stackoverflow.com/questions/66850047/get-geojson-data-from-wikidata
-  simplify(data) {
+  simplify(data): Wikidata[] {
     const bindings = data.results.bindings;
     return bindings.map((binding) => {
-      Object.keys(binding).forEach(function (key, index) {
+      Object.keys(binding).forEach(function (key) {
         binding[key] = binding[key].value;
       });
       return binding;
