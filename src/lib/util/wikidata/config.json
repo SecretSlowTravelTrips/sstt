@@ -1,62 +1,537 @@
-[
-  {
-    "name": "Road",
-    "id": "Q34442",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Cemetery",
-    "id": "Q39614",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Accident",
-    "id": "Q171558",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Farmhouse",
-    "id": "Q489357",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Municipality section",
-    "id": "Q2785216",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Viaduc",
-    "id": "Q181348",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Railway tunnel",
-    "id": "Q1311958",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Prisons",
-    "id": "Q40357",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "The bridges",
-    "id": "Q12280",
-    "instanceOf": true,
-    "subclassOf": false
-  },
-  {
-    "name": "Tunnels",
-    "id": "Q44377",
-    "instanceOf": true,
-    "subclassOf": false
+{
+  "deny": [
+    {
+      "name": "Accident",
+      "id": "Q171558"
+    },
+    {
+      "name": "Belgian municipality with the title of city",
+      "id": "Q15273785"
+    },
+    {
+      "name": "Big city",
+      "id": "Q1549591"
+    },
+    {
+      "name": "Cemetery",
+      "id": "Q39614"
+    },
+    {
+      "name": "Farmhouse",
+      "id": "Q489357"
+    },
+    {
+      "name": "Human settlement",
+      "id": "Q486972"
+    },
+    {
+      "name": "Municipality of Belgium",
+      "id": "Q493522"
+    },
+    {
+      "name": "Municipality section",
+      "id": "Q2785216"
+    },
+    {
+      "name": "Road",
+      "id": "Q34442"
+    },
+    {
+      "name": "Prisons",
+      "id": "Q40357"
+    },
+    {
+      "name": "Railway station",
+      "id": "Q55488"
+    },
+    {
+      "name": "Railway tunnel",
+      "id": "Q1311958"
+    },
+    {
+      "name": "Street",
+      "id": "Q79007"
+    },
+    {
+      "name": "The bridges",
+      "id": "Q12280"
+    },
+    {
+      "name": "Tunnels",
+      "id": "Q44377"
+    },
+    {
+      "name": "Viaduc",
+      "id": "Q181348"
+    },
+    {
+      "name": "Village",
+      "id": "Q532"
+    },
+    {
+      "name": "Administrative arrondissement of Belgium",
+      "id": "Q91028"
+    },
+    {
+      "name": "City",
+      "id": "Q515"
+    },
+    {
+      "name": "Modern language",
+      "id": "Q1288568"
+    },
+    {
+      "name": "Language",
+      "id": "Q34770"
+    },
+    {
+      "name": "Province of Belgium",
+      "id": "Q83116"
+    },
+    {
+      "name": "Border town",
+      "id": "Q902814"
+    },
+    {
+      "name": "Square",
+      "id": "Q174782"
+    },
+    {
+      "name": "Neighborhood",
+      "id": "Q123705"
+    },
+    {
+      "name": "Town",
+      "id": "Q3957"
+    },
+    {
+      "name": "Station located underground",
+      "id": "Q22808403"
+    },
+    {
+      "name": "Metro station",
+      "id": "Q928830"
+    },
+    {
+      "name": "House",
+      "id": "Q3947"
+    },
+    {
+      "name": "Organization",
+      "id": "Q43229"
+    },
+    {
+      "name": "Region of Belgium",
+      "id": "Q83057"
+    },
+    {
+      "name": "Sovereign state",
+      "id": "Q3624078"
+    },
+    {
+      "name": "National road in Belgium",
+      "id": "Q1821082"
+    },
+    {
+      "name": "University",
+      "id": "Q3918"
+    },
+    {
+      "name": "Tram stop",
+      "id": "Q2175765"
+    },
+    {
+      "name": "European City",
+      "id": "Q1375749"
+    },
+    {
+      "name": "Global city",
+      "id": "Q208511"
+    },
+    {
+      "name": "Airport",
+      "id": "Q1248784"
+    },
+    {
+      "name": "Association football venue",
+      "id": "Q1154710"
+    },
+    {
+      "name": "Hamlet",
+      "id": "Q5084"
+    },
+    {
+      "name": "Area",
+      "id": "Q1414991"
+    },
+    {
+      "name": "School",
+      "id": "Q3914"
+    },
+    {
+      "name": "Municipalities with language facilities",
+      "id": "Q737681"
+    },
+    {
+      "name": "Community of Belgium",
+      "id": "Q89934"
+    },
+    {
+      "name": "Gristmill",
+      "id": "Q623605"
+    },
+    {
+      "name": "Capital",
+      "id": "Q5119"
+    },
+    {
+      "name": "Nation",
+      "id": "Q6266"
+    },
+    {
+      "name": "Mass murder",
+      "id": "Q750215"
+    },
+    {
+      "name": "Boundary marker",
+      "id": "Q921099"
+    },
+    {
+      "name": "Terrorist attack",
+      "id": "Q2223653"
+    },
+    {
+      "name": "Commercial traffic aerodrome",
+      "id": "Q94993988"
+    },
+    {
+      "name": "Embassy",
+      "id": "Q3917681"
+    },
+    {
+      "name": "Suicide bombing",
+      "id": "Q18493502"
+    },
+    {
+      "name": "Thoroughfare",
+      "id": "Q83620"
+    }
+  ],
+  "allow": {
+    "architecture": {
+      "name": "Architecture & buildings",
+      "types": [
+        {
+          "name": "Building",
+          "id": "Q41176"
+        },
+        {
+          "name": "Bridge",
+          "id": "Q12280"
+        },
+        {
+          "name": "Architectural structure",
+          "id": "Q811979"
+        },
+        {
+          "name": "Windmill",
+          "id": "Q38720"
+        },
+        {
+          "name": "City hall",
+          "id": "Q543654"
+        },
+        {
+          "name": "Belfry",
+          "id": "Q815448"
+        },
+        {
+          "name": "Cathedral",
+          "id": "Q2977"
+        },
+        {
+          "name": "Manor house",
+          "id": "Q879050"
+        },
+        {
+          "name": "War memorial",
+          "id": "Q575759"
+        },
+        {
+          "name": "Roman city",
+          "id": "Q2202509"
+        }
+      ]
+    },
+    "art": {
+      "name": "Art & Culture",
+      "types": [
+        {
+          "name": "Museum",
+          "id": "Q33506"
+        },
+        {
+          "name": "Art museum",
+          "id": "Q207694"
+        },
+        {
+          "name": "Statue",
+          "id": "Q179700"
+        },
+        {
+          "name": "Archive",
+          "id": "Q166118"
+        },
+        {
+          "name": "Military museum",
+          "id": "Q2772772"
+        },
+        {
+          "name": "Heritage library",
+          "id": "Q2208411"
+        },
+        {
+          "name": "Theatre",
+          "id": "Q24354"
+        },
+        {
+          "name": "Sculpture",
+          "id": "Q860861"
+        }
+      ]
+    },
+    "bio": {
+      "name": "Bio & Permaculture",
+      "types": []
+    },
+    "food": {
+      "name": "Food & Drinks",
+      "types": [
+        {
+          "name": "Abbey",
+          "id": "Q160742"
+        },
+        {
+          "name": "Brewery",
+          "id": "Q131734"
+        }
+      ]
+    },
+    "history": {
+      "name": "History",
+      "types": [
+        {
+          "name": "Château",
+          "id": "Q751876"
+        },
+        {
+          "name": "Battle",
+          "id": "Q178561"
+        },
+        {
+          "name": "Commonwealth War Graves Commission maintained cemetery",
+          "id": "Q14750991"
+        },
+        {
+          "name": "Castle",
+          "id": "Q23413"
+        },
+        {
+          "name": "Abbey",
+          "id": "Q160742"
+        },
+        {
+          "name": "Monastery",
+          "id": "Q44613"
+        },
+        {
+          "name": "Fort",
+          "id": "Q1785071"
+        },
+        {
+          "name": "Statue",
+          "id": "Q179700"
+        },
+        {
+          "name": "Archive",
+          "id": "Q166118"
+        },
+        {
+          "name": "Siege",
+          "id": "Q188055"
+        },
+        {
+          "name": "Belfry",
+          "id": "Q815448"
+        },
+        {
+          "name": "Heritage library",
+          "id": "Q2208411"
+        },
+        {
+          "name": "Cathedral",
+          "id": "Q2977"
+        },
+        {
+          "name": "Sculpture",
+          "id": "Q860861"
+        },
+        {
+          "name": "Manor house",
+          "id": "Q879050"
+        },
+        {
+          "name": "War memorial",
+          "id": "Q575759"
+        },
+        {
+          "name": "Tumulus",
+          "id": "Q34023"
+        },
+        {
+          "name": "Enclave",
+          "id": "Q171441"
+        },
+        {
+          "name": "Roman city",
+          "id": "Q2202509"
+        }
+      ]
+    },
+    "miscellaneous": {
+      "name": "Hidden miscellaneous places ",
+      "types": [
+        {
+          "name": "Tourist attraction",
+          "id": "Q570116"
+        }
+      ]
+    },
+    "nature": {
+      "name": "Wildlife & Nature",
+      "types": [
+        {
+          "name": "Natural landscape",
+          "id": "Q1286517"
+        },
+        {
+          "name": "Forest",
+          "id": "Q4421"
+        },
+        {
+          "name": "Park",
+          "id": "Q22698"
+        },
+        {
+          "name": "Hill",
+          "id": "Q54050"
+        },
+        {
+          "name": "Mountain",
+          "id": "Q8502"
+        }
+      ]
+    },
+    "photography": {
+      "name": "Photography",
+      "types": [
+        {
+          "name": "Windmill",
+          "id": "Q38720"
+        },
+        {
+          "name": "Tourist attraction",
+          "id": "Q570116"
+        }
+      ]
+    },
+    "religious": {
+      "name": "Religious buildings",
+      "types": [
+        {
+          "name": "Parish church",
+          "id": "Q317557"
+        },
+        {
+          "name": "Chapel",
+          "id": "Q108325"
+        },
+        {
+          "name": "Church building",
+          "id": "Q16970"
+        },
+        {
+          "name": "Abbey",
+          "id": "Q160742"
+        },
+        {
+          "name": "Monastery",
+          "id": "Q44613"
+        },
+        {
+          "name": "Cathedral",
+          "id": "Q2977"
+        }
+      ]
+    },
+    "science": {
+      "name": "Science",
+      "types": [
+        {
+          "name": "Federal scientific Institute",
+          "id": "Q2288140"
+        }
+      ]
+    },
+    "sports": {
+      "name": "Sports",
+      "types": [
+        {
+          "name": "Association football venue",
+          "id": "Q1154710"
+        },
+        {
+          "name": "Stadium",
+          "id": "Q483110"
+        }
+      ]
+    },
+    "water": {
+      "name": "Seaside & water",
+      "types": [
+        {
+          "name": "River",
+          "id": "Q4022"
+        },
+        {
+          "name": "Canal",
+          "id": "Q12284"
+        },
+        {
+          "name": "Main stream",
+          "id": "Q573344"
+        },
+        {
+          "name": "Stream",
+          "id": "Q47521"
+        },
+        {
+          "name": "Watermill",
+          "id": "Q185187"
+        },
+        {
+          "name": "Fountain",
+          "id": "Q483453"
+        },
+        {
+          "name": "Port settlement",
+          "id": "Q2264924"
+        },
+        {
+          "name": "Seaport",
+          "id": "Q15310171"
+        }
+      ]
+    }
   }
-]
+}
