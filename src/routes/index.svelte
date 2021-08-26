@@ -2,7 +2,7 @@
   import { FileInput, DownloadButton } from '$lib/components/index';
   import { queryAndDownload } from '$lib/util/overpass';
   import { config } from '$lib/util/overpass';
-  import { fetchWikidata } from '$lib/util/wikidata';
+  import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import exportToGeoJSONFile from '$lib/util/exportToGeoJsonFile';
   let center = {
     lat: 51,
@@ -13,6 +13,9 @@
   let radiusInKm: number;
   let prefLangs: string = 'fr, nl, en';
   let prefLangsArray: string[];
+
+  let allowedTypes = typesAllowedByDefault();
+  let wikidata;
 
   const maxRadius = 50000;
 
@@ -27,10 +30,22 @@
     if (prefLangs) prefLangsArray = prefLangs.split(/[ ,]+/);
   }
 
-  const removeFilenameExtention = (filename) => {
+  const removeFilenameExtention = (filename: string) => {
     const chunks = filename.split('.');
     chunks.pop();
     return chunks.join('.');
+  };
+
+  const queryWikidata = async () => {
+    wikidata = await fetchWikidata(files[0], radiusInKm, prefLangsArray);
+  };
+
+  const downloadWikidata = async () => {
+    if (wikidata)
+      exportToGeoJSONFile(
+        filter(await fetchWikidata(files[0], radiusInKm, prefLangsArray), allowedTypes),
+        `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
+      );
   };
 </script>
 
@@ -69,16 +84,7 @@
         <small>Enter each language code and separate them by a comma (,).</small>
       </div>
     </label>
-    <DownloadButton
-      on:click={async () =>
-        exportToGeoJSONFile(
-          await fetchWikidata(files[0], radiusInKm, prefLangsArray),
-          `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
-        )}
-      name="wikidata"
-    >
-      Wikidata
-    </DownloadButton>
+    <DownloadButton on:click={downloadWikidata} name="wikidata">Wikidata</DownloadButton>
   {/if}
 </div>
 

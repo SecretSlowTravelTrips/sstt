@@ -16,9 +16,9 @@ export default async (
   const polygon = geoJSONToPolygon(createdGeoJson, radius);
   const bbx = bbox(polygon);
 
-  const data = toGeoJSON(
-    await queryDispatcher.query(buildQuery([bbx[0], bbx[1]], [bbx[2], bbx[3]], langs))
+  const data = within(
+    toGeoJSON(await queryDispatcher.query(buildQuery([bbx[0], bbx[1]], [bbx[2], bbx[3]], langs))),
+    polygon
   );
-
-  return within(data, polygon);
+  return data;
 };

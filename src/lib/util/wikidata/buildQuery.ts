@@ -1,13 +1,3 @@
-import config from './config.json';
-
-const subclass = 'wdt:P279';
-const instance = 'wdt:P31';
-const buildPredicate = (instanceOf: boolean, subclassOf: boolean) => {
-  const predicate = [instanceOf ? instance : '', subclassOf ? subclass : ''];
-
-  return instanceOf && subclassOf ? `${predicate.join('/')}?` : predicate.join('');
-};
-
 export default (
   westCorner: Array<number>,
   eastCorner: Array<number>,
@@ -24,12 +14,8 @@ export default (
 
   const ignoreNoWikipedia = true;
 
-  const excludeItemsStatements = config.map(
-    (c) => `FILTER NOT EXISTS {?place ${buildPredicate(c.instanceOf, c.subclassOf)} wd:${c.id}.}`
-  );
-
   return `
-  SELECT ?place ?location ?placeLabel ?instanceLabel ?image ${Object.keys(wikiArticles).join(
+  SELECT ?place ?location ?placeLabel ?instance ?instanceLabel ?image ${Object.keys(wikiArticles).join(
     ' '
   )} ?prefArticle WHERE {
     SERVICE wikibase:box {
@@ -44,7 +30,6 @@ export default (
     OPTIONAL {
       ?place wdt:P31 ?instance.
     }
-    ${excludeItemsStatements.join('\n')}
     OPTIONAL { ?place wdt:P18 ?image. }
     ${Object.values(wikiArticles).join('\n')}
     BIND(COALESCE(${Object.keys(wikiArticles).join(', ')}, "") AS ?prefArticle)
