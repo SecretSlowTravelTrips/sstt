@@ -41,11 +41,10 @@
   };
 
   const downloadWikidata = async () => {
-    if (wikidata)
-      exportToGeoJSONFile(
-        filter(await fetchWikidata(files[0], radiusInKm, prefLangsArray), allowedTypes),
-        `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
-      );
+    exportToGeoJSONFile(
+      filter(await fetchWikidata(files[0], radiusInKm, prefLangsArray), allowedTypes),
+      `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
+    );
   };
 </script>
 
