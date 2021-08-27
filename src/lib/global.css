@@ -1,3 +1,34 @@
 @tailwind base;
+
+@layer base {
+  html,
+  body,
+  #svelte {
+    height: 100%;
+  }
+}
+
 @tailwind components;
+
+@layer components {
+  /* Reference: https://github.com/twbs/bootstrap/pull/31955/ */
+
+  .file-selector-button {
+    @apply text-gray-800 bg-gray-50 hover:bg-gray-200 font-medium text-sm border-0
+    border-r border-solid border-gray-300 py-2 pl-8 pr-4;
+    margin-inline-start: -1rem;
+    margin-inline-end: 1rem;
+  }
+
+  ::file-selector-button {
+    @apply file-selector-button;
+  }
+  ::-webkit-file-upload-button {
+    @apply file-selector-button;
+  }
+  ::-ms-browse {
+    @apply file-selector-button;
+  }
+}
+
 @tailwind utilities;

@@ -6,4 +6,4 @@
   export let value;
 </script>
 
-<input {type} {name} {value} {max} {id} class="px-4 py-2" />
+<input {type} {name} {value} {max} {id} class="px-3 py-2 rounded w-full" />
