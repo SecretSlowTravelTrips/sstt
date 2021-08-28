@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { DownloadButton } from '$lib/components';
   import { Map, Trail } from '$lib/components/Map';
   import { queryAndDownload, config } from '$lib/util/overpass';
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, fileToGeoJSON } from '$lib/util';
-  import { Input, FileInput } from '$lib/components/UI';
+  import { Input, FileInput, DownloadButton } from '$lib/components/UI';
 
   let center = {
     lat: 51,
@@ -69,20 +68,22 @@
     </div>
     {#if files && files[0]}
       <h2>Overpass</h2>
-      {#each config.overpassQueryButtons as configuration, i}
-        <DownloadButton
-          on:click={() =>
-            queryAndDownload(
-              files[0],
-              configuration.query,
-              `${removeFilenameExtention(files[0].name)}---${radiusInM}m---${configuration.name}`,
-              radiusInKm
-            )}
-          name={configuration.name}
-        >
-          {configuration.name}
-        </DownloadButton>
-      {/each}
+      <div class="flex flex-wrap gap-1">
+        {#each config.overpassQueryButtons as configuration, i}
+          <DownloadButton
+            on:click={() =>
+              queryAndDownload(
+                files[0],
+                configuration.query,
+                `${removeFilenameExtention(files[0].name)}---${radiusInM}m---${configuration.name}`,
+                radiusInKm
+              )}
+            name={configuration.name}
+          >
+            {configuration.name}
+          </DownloadButton>
+        {/each}
+      </div>
       <h2>Wikidata</h2>
       <label for="pref-langs">
         <Input type="text" id="pref-langs" bind:value={prefLangs} />
