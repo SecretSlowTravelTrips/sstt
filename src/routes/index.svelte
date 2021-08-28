@@ -3,7 +3,7 @@
   import { queryAndDownload, config } from '$lib/util/overpass';
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, fileToGeoJSON } from '$lib/util';
-  import { Input, FileInput, DownloadButton } from '$lib/components/UI';
+  import { Input, FileInput, DownloadButton, FormGroup } from '$lib/components/UI';
 
   let center = {
     lat: 51,
@@ -52,20 +52,19 @@
 
 <main class="w-full h-full flex">
   <div class="w-60 md:w-96 flex flex-col p-2 max-h-full overflow-y-auto flex-shrink-0">
-    <div>
+    <FormGroup>
       <FileInput
         bind:files
         on:change={async () => (uploadedTrail = await fileToGeoJSON(files[0]))}
       />
-    </div>
-    <div class="raduis">
+    </FormGroup>
+    <FormGroup>
       <label for="radius">
-        Within <Input type="number" id="radius" bind:value={radiusInM} max={maxRadius} /> meters
+        Radius (meters)
+        <Input type="number" id="radius" bind:value={radiusInM} max={maxRadius} />
       </label>
-      <div>
-        <small>Only values between 1 and 50000 are allowed</small>
-      </div>
-    </div>
+      <small slot="help">Only values between 1 and 50000 are allowed</small>
+    </FormGroup>
     {#if files && files[0]}
       <h2>Overpass</h2>
       <div class="flex flex-wrap gap-1">
