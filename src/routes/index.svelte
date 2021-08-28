@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { FileInput, DownloadButton } from '$lib/components';
+  import { DownloadButton } from '$lib/components';
   import { Map, Trail } from '$lib/components/Map';
   import { queryAndDownload, config } from '$lib/util/overpass';
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, fileToGeoJSON } from '$lib/util';
-  import { Input } from '$lib/components/UI';
+  import { Input, FileInput } from '$lib/components/UI';
 
   let center = {
     lat: 51,
