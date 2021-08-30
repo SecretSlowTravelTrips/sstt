@@ -3,7 +3,14 @@
   import { queryAndDownload, config } from '$lib/util/overpass';
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, fileToGeoJSON } from '$lib/util';
-  import { Input, FileInput, DownloadButton, FormGroup, Details } from '$lib/components/UI';
+  import {
+    Input,
+    FileInput,
+    DownloadButton,
+    FormGroup,
+    Details,
+    TokenizerInput
+  } from '$lib/components/UI';
 
   let center = {
     lat: 51,
@@ -12,8 +19,7 @@
   let files: FileList;
   let radiusInM = 1000;
   let radiusInKm: number;
-  let prefLangs: string = 'fr, nl, en';
-  let prefLangsArray: string[];
+  let prefLangs: string[] = ['fr', 'nl', 'en'];
   let uploadedTrail;
 
   let allowedTypes = typesAllowedByDefault();
@@ -28,10 +34,6 @@
     radiusInKm = radiusInM / 1000;
   }
 
-  $: {
-    if (prefLangs) prefLangsArray = prefLangs.split(/[ ,]+/);
-  }
-
   const removeFilenameExtention = (filename: string) => {
     const chunks = filename.split('.');
     chunks.pop();
@@ -39,12 +41,12 @@
   };
 
   const queryWikidata = async () => {
-    wikidata = await fetchWikidata(files[0], radiusInKm, prefLangsArray);
+    wikidata = await fetchWikidata(files[0], radiusInKm, prefLangs);
   };
 
   const downloadWikidata = async () => {
     exportToGeoJSONFile(
-      filter(await fetchWikidata(files[0], radiusInKm, prefLangsArray), allowedTypes),
+      filter(await fetchWikidata(files[0], radiusInKm, prefLangs), allowedTypes),
       `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
     );
   };
@@ -88,7 +90,7 @@
       </Details>
       <Details summary="Wikidata">
         <label for="pref-langs">
-          <Input type="text" id="pref-langs" bind:value={prefLangs} />
+          <TokenizerInput bind:items={prefLangs} />
           <div>
             <small>Enter each language code and separate them by a comma (,).</small>
           </div>
