@@ -5,6 +5,8 @@
 
   export let separator = ',';
   export let items = [];
+  export let id: string = null;
+
   let value = '';
   let container: HTMLElement;
 
@@ -51,6 +53,7 @@
     <Tag on:close={() => removeItem(item)}>{item}</Tag>
   {/each}
   <input
+    {id}
     type="text"
     bind:value
     on:input={onInput}
