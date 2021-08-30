@@ -3,7 +3,7 @@
   import { queryAndDownload, config } from '$lib/util/overpass';
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, fileToGeoJSON } from '$lib/util';
-  import { Input, FileInput, DownloadButton, FormGroup } from '$lib/components/UI';
+  import { Input, FileInput, DownloadButton, FormGroup, Details } from '$lib/components/UI';
 
   let center = {
     lat: 51,
@@ -66,31 +66,35 @@
       <small slot="help">Only values between 1 and 50000 are allowed</small>
     </FormGroup>
     {#if files && files[0]}
-      <h2>Overpass</h2>
-      <div class="flex flex-wrap gap-1">
-        {#each config.overpassQueryButtons as configuration, i}
-          <DownloadButton
-            on:click={() =>
-              queryAndDownload(
-                files[0],
-                configuration.query,
-                `${removeFilenameExtention(files[0].name)}---${radiusInM}m---${configuration.name}`,
-                radiusInKm
-              )}
-            name={configuration.name}
-          >
-            {configuration.name}
-          </DownloadButton>
-        {/each}
-      </div>
-      <h2>Wikidata</h2>
-      <label for="pref-langs">
-        <Input type="text" id="pref-langs" bind:value={prefLangs} />
-        <div>
-          <small>Enter each language code and separate them by a comma (,).</small>
+      <Details summary="Overpass">
+        <div class="flex flex-wrap gap-1">
+          {#each config.overpassQueryButtons as configuration, i}
+            <DownloadButton
+              on:click={() =>
+                queryAndDownload(
+                  files[0],
+                  configuration.query,
+                  `${removeFilenameExtention(files[0].name)}---${radiusInM}m---${
+                    configuration.name
+                  }`,
+                  radiusInKm
+                )}
+              name={configuration.name}
+            >
+              {configuration.name}
+            </DownloadButton>
+          {/each}
         </div>
-      </label>
-      <DownloadButton on:click={downloadWikidata} name="wikidata">Wikidata</DownloadButton>
+      </Details>
+      <Details summary="Wikidata">
+        <label for="pref-langs">
+          <Input type="text" id="pref-langs" bind:value={prefLangs} />
+          <div>
+            <small>Enter each language code and separate them by a comma (,).</small>
+          </div>
+        </label>
+        <DownloadButton on:click={downloadWikidata} name="wikidata">Wikidata</DownloadButton>
+      </Details>
     {/if}
   </div>
   <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
