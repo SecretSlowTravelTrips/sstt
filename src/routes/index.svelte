@@ -1,16 +1,9 @@
 <script lang="ts">
   import { Map, Trail } from '$lib/components/Map';
   import { queryAndDownload, config } from '$lib/util/overpass';
-  import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
-  import { exportToGeoJSONFile, fileToGeoJSON } from '$lib/util';
-  import {
-    Input,
-    FileInput,
-    DownloadButton,
-    FormGroup,
-    Details,
-    TokenizerInput
-  } from '$lib/components/UI';
+  import { fileToGeoJSON, removeFilenameExtention } from '$lib/util';
+  import { Input, FileInput, DownloadButton, FormGroup, Details } from '$lib/components/UI';
+  import Wikidata from '$lib/components/Wikidata.svelte';
 
   let center = {
     lat: 51,
@@ -19,11 +12,7 @@
   let files: FileList;
   let radiusInM = 1000;
   let radiusInKm: number;
-  let prefLangs: string[] = ['fr', 'nl', 'en'];
   let uploadedTrail;
-
-  let allowedTypes = typesAllowedByDefault();
-  let wikidata;
 
   const maxRadius = 50000;
 
@@ -33,23 +22,6 @@
 
     radiusInKm = radiusInM / 1000;
   }
-
-  const removeFilenameExtention = (filename: string) => {
-    const chunks = filename.split('.');
-    chunks.pop();
-    return chunks.join('.');
-  };
-
-  const queryWikidata = async () => {
-    wikidata = await fetchWikidata(files[0], radiusInKm, prefLangs);
-  };
-
-  const downloadWikidata = async () => {
-    exportToGeoJSONFile(
-      filter(await fetchWikidata(files[0], radiusInKm, prefLangs), allowedTypes),
-      `${removeFilenameExtention(files[0].name)}---${radiusInM}m---wikidata`
-    );
-  };
 </script>
 
 <main class="w-full h-full flex">
@@ -88,15 +60,7 @@
           {/each}
         </div>
       </Details>
-      <Details summary="Wikidata">
-        <label for="pref-langs">
-          <TokenizerInput bind:items={prefLangs} />
-          <div>
-            <small>Enter each language code and separate them by a comma (,).</small>
-          </div>
-        </label>
-        <DownloadButton on:click={downloadWikidata} name="wikidata">Wikidata</DownloadButton>
-      </Details>
+      <Wikidata radius={radiusInKm} {files} />
     {/if}
   </div>
   <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
