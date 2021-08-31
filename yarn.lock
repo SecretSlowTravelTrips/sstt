@@ -3572,6 +3572,11 @@ xmldom@~0.1.16:
   resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.31.tgz#b76c9a1bd9f0a9737e5a72dc37231cf38375e2ff"
   integrity sha512-yS2uJflVQs6n+CyjHoaBmVSqIDevTAWrzMmjG1Gc7h1qQ7uVozNhEPJAwZXWyGQ/Gafo3fCwrcaokezLPupVyQ==
 
+xstate@^4.23.3:
+  version "4.23.3"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.23.3.tgz#affadf52857b7c39ab6ad2ccd891dbd5f1c56ab0"
+  integrity sha512-Djw9CJ5gpivFe6wGNsSFs8Ya5awG2hxbDHxBjqQrysl3LiOr+uULExs11eqTi8IIw9WWE2lbiJMbWRONCvj1Yg==
+
 xtend@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
