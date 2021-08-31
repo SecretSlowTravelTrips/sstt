@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, removeFilenameExtention } from '$lib/util';
-  import { DownloadButton, FormGroup, Details, TokenizerInput, Label } from '$lib/components/UI';
+  import { LoadButton, FormGroup, Details, TokenizerInput, Label } from '$lib/components/UI';
 
   export let radius: number;
   export let files: FileList;
@@ -30,5 +30,8 @@
       </div>
     </Label>
   </FormGroup>
-  <DownloadButton on:click={downloadWikidata} name="wikidata">Wikidata</DownloadButton>
+  <div>
+    <LoadButton isDown={false} on:click={downloadWikidata} name="wikidata">Load</LoadButton>
+    <LoadButton on:click={downloadWikidata} name="wikidata">Download</LoadButton>
+  </div>
 </Details>

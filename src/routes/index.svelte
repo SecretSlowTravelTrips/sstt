@@ -2,7 +2,13 @@
   import { Map, Trail } from '$lib/components/Map';
   import { queryAndDownload, config } from '$lib/util/overpass';
   import { fileToGeoJSON, removeFilenameExtention } from '$lib/util';
-  import { Input, FileInput, DownloadButton, FormGroup, Details } from '$lib/components/UI';
+  import {
+    Input,
+    FileInput,
+    LoadButton as DownloadButton,
+    FormGroup,
+    Details
+  } from '$lib/components/UI';
   import Wikidata from '$lib/components/Wikidata.svelte';
 
   let center = {
