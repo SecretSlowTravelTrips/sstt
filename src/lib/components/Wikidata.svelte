@@ -2,6 +2,7 @@
   import { fetchWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
   import { exportToGeoJSONFile, removeFilenameExtention } from '$lib/util';
   import { LoadButton, FormGroup, Details, TokenizerInput, Label } from '$lib/components/UI';
+  import CheckButton from './UI/CheckButton.svelte';
 
   export let radius: number;
   export let files: FileList;
@@ -30,8 +31,18 @@
       </div>
     </Label>
   </FormGroup>
-  <div>
+  <div class="my-2">
     <LoadButton isDown={false} on:click={downloadWikidata} name="wikidata">Load</LoadButton>
     <LoadButton on:click={downloadWikidata} name="wikidata">Download</LoadButton>
   </div>
+
+  <Details summary="Allowed" isTitle={false}>
+    <div class="flex flex-wrap gap-1">
+      {#each Array.from(allowedTypes) as type (type)}
+        <CheckButton checked label={type} />
+      {/each}
+    </div>
+  </Details>
+  <Details summary="Unknown" isTitle={false} />
+  <Details summary="Denied" isTitle={false} />
 </Details>
