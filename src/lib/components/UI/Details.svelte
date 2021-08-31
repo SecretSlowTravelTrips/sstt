@@ -2,7 +2,10 @@
   import { fade } from 'svelte/transition';
 
   export let summary: string;
-  let open = false;
+  export let isTitle = true;
+
+  export let open = false;
+
   const toggle = ({ target }) => {
     open = target.open;
   };
@@ -10,7 +13,10 @@
 
 <details on:toggle={toggle} class="border">
   <summary class="flex items-center relative p-2 {open ? 'border-b' : ''} cursor-pointer">
-    <h2 class="text-xl font-semibold mr-2">{summary}</h2>
+    {#if isTitle}<h2 class="text-xl font-semibold mr-2">{summary}</h2>
+    {:else}
+      <span class="font-semibold mr-2">{summary}</span>
+    {/if}
     <div class="absolute right-0">
       <svg
         class="fill-current opacity-75 w-5 h-5 mr-2 {open ? '-rotate-90' : 'rotate-90'}"
