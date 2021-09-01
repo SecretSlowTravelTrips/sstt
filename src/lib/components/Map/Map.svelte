@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setContext, onMount } from 'svelte';
+  import { setContext, onMount, onDestroy } from 'svelte';
   import maplibregl from 'maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
   import { key } from './contextKey';
@@ -48,6 +48,10 @@
     map.on('load', () => {
       loaded = true;
     });
+  });
+
+  onDestroy(() => {
+    map && map.remove();
   });
 </script>
 

@@ -26,7 +26,7 @@
   });
 
   onDestroy(() => {
-    map.removeLayer('trail');
-    map.removeSource('trail');
+    map.getLayer('trail') && map.removeLayer('trail');
+    map.getSource('trail') && map.removeSource('trail');
   });
 </script>
