@@ -2,7 +2,7 @@ import fileToGeoJSON from '$lib/util/fileToGeoJson';
 import SPARQLQueryDispatcher from './SPARQLQueryDispatcher';
 import buildQuery from './buildQuery';
 import toGeoJSON from './toGeoJSON';
-import geoJSONToPolygon from '$lib/util/geoJsonToPolygon';
+import generateBuffer from '$lib/util/generateBuffer';
 import { AllGeoJSON, bbox, FeatureCollection, Point, Properties, within } from '@turf/turf';
 
 export default async (
@@ -13,7 +13,7 @@ export default async (
   const queryDispatcher = new SPARQLQueryDispatcher();
   const createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
 
-  const polygon = geoJSONToPolygon(createdGeoJson, radius);
+  const polygon = generateBuffer(createdGeoJson, radius);
   const bbx = bbox(polygon);
 
   const data = within(

@@ -1,12 +1,12 @@
-import { AllGeoJSON, simplify } from '@turf/turf';
+import { AllGeoJSON, FeatureCollection, simplify } from '@turf/turf';
 import osmtogeojson from 'osmtogeojson';
-import { fileToGeoJSON, geoJsonToPolygon } from '$lib/util';
+import { fileToGeoJSON, generateBuffer, exportToGeoJSONFile } from '$lib/util';
 import fetchOverpass from '$lib/util/overpass/fetchOverpass';
 
 export default async (file: File, overpassQuery: Array<any>, filename, radius = 1) => {
-  const createdGeoJson: AllGeoJSON = await fileToGeoJSON(file);
+  const createdGeoJson: FeatureCollection = await fileToGeoJSON(file);
 
-  const polygon = geoJsonToPolygon(createdGeoJson, radius);
+  const polygon = generateBuffer(createdGeoJson, radius);
   console.log(polygon);
 
   const simplifiedPolygon = simplify(polygon, {
@@ -39,6 +39,6 @@ export default async (file: File, overpassQuery: Array<any>, filename, radius = 
   const customGeoJSON = osmtogeojson(data);
   console.log(customGeoJSON);
 
-  exportToGeoJsonFile(customGeoJSON, filename);
+  exportToGeoJSONFile(customGeoJSON, filename);
   return;
 };
