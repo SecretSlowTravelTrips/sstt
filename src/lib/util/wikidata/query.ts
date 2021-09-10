@@ -12,7 +12,6 @@ import {
 } from '@turf/turf';
 
 export default async (
-  file: File,
   buffer: FeatureCollection<Polygon | MultiPolygon>,
   langs: string[]
 ): Promise<FeatureCollection<Point, Properties>> => {
