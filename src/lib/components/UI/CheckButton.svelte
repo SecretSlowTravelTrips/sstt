@@ -28,6 +28,6 @@
       />
     </svg>
   {/if}
-  <input type="checkbox" class="sr-only" {disabled} bind:checked />
+  <input type="checkbox" class="sr-only" {disabled} bind:checked on:change />
   {label}
 </label>
