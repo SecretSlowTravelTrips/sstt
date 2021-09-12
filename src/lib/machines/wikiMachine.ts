@@ -1,6 +1,6 @@
 import { aggregate, AggregatedWikidata, filter, typesAllowedByDefault } from '$lib/util/wikidata';
 import { featureCollection } from '@turf/helpers';
-import { createMachine, assign } from 'xstate';
+import { createMachine, assign, sendParent } from 'xstate';
 import { exportToGeoJSONFile, removeFilenameExtention } from '../util';
 import query from '../util/wikidata/query';
 import { SharedContext, sharedInitialContext } from './shared';
@@ -95,6 +95,8 @@ export const wikiMachine = createMachine<WikiContext, WikidataEvent>(
       },
       load: {
         tags: ['loading'],
+        entry: sendParent('QUERYING'),
+        exit: sendParent('DONE_QUERYING'),
         invoke: {
           id: 'fetch-wikidata',
           src: fetchWikidata,

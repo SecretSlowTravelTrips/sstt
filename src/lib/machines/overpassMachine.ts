@@ -1,6 +1,6 @@
 import { removeFilenameExtention } from '$lib/util';
 import { queryAndDownload } from '$lib/util/overpass';
-import { assign, createMachine } from 'xstate';
+import { assign, createMachine, sendParent } from 'xstate';
 import type { SharedContext } from './shared';
 
 type DownloadEvent = { type: 'DOWNLOAD_DATA'; query: Record<string, string>[]; name: string };
@@ -47,6 +47,8 @@ export const overpassMachine = createMachine<OverpassContext, OverpassEvent>(
       },
       download: {
         tags: ['loading'],
+        entry: sendParent('QUERYING'),
+        exit: sendParent('DONE_QUERYING'),
         invoke: {
           id: 'download-overpass',
           src: download,

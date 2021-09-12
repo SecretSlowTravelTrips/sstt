@@ -7,7 +7,11 @@ import { overpassMachine } from './overpassMachine';
 type FileUploadEvent = { type: 'FILE_UPLOAD'; file: File };
 type UpdateRadiusEvent = { type: 'UPDATE_RADIUS'; radius: number };
 
-type AppEvent = FileUploadEvent | UpdateRadiusEvent;
+type AppEvent =
+  | FileUploadEvent
+  | UpdateRadiusEvent
+  | { type: 'QUERYING' }
+  | { type: 'DONE_QUERYING' };
 
 type AppContext = SharedContext;
 
@@ -23,6 +27,10 @@ type AppTypestate =
   | {
       value: 'generateBuffer';
       context: AppContext & { error: undefined; buffer: undefined };
+    }
+  | {
+      value: 'query';
+      context: AppContext & { error: undefined };
     };
 
 const addFile = assign({
@@ -93,6 +101,7 @@ export const appMachine = createMachine<AppContext, AppEvent, AppTypestate>(
         }
       },
       query: {
+        initial: 'pending',
         invoke: [
           {
             id: 'wikiMachine',
@@ -109,11 +118,22 @@ export const appMachine = createMachine<AppContext, AppEvent, AppTypestate>(
             })
           }
         ],
-        on: {
-          UPDATE_RADIUS: { target: 'generateBuffer', actions: 'updateRadius' },
-          FILE_UPLOAD: {
-            target: 'processFile',
-            actions: ['addFile', 'clearError', 'clearGeoJSON', 'clearBuffer']
+        states: {
+          querying: {
+            tags: ['loading'],
+            on: { DONE_QUERYING: 'pending' }
+          },
+          pending: {
+            on: {
+              UPDATE_RADIUS: { target: '#app.generateBuffer', actions: 'updateRadius' },
+              FILE_UPLOAD: {
+                target: '#app.processFile',
+                actions: ['addFile', 'clearError', 'clearGeoJSON', 'clearBuffer']
+              },
+              QUERYING: {
+                target: 'querying'
+              }
+            }
           }
         }
       }
