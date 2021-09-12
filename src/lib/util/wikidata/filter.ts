@@ -1,23 +1,26 @@
-import { featureCollection, FeatureCollection, Point, Properties } from '@turf/turf';
+import type { AggregatedWikidata } from './aggregate';
 import config from './config.json';
 
-export const typesAllowedByDefault = (): Set<string> => {
-  const types = new Set<string>();
+export const typesAllowedByDefault = (): Record<string, string[]> => {
+  const types = {};
   for (const category in config.allow) {
     for (const type of config.allow[category].types) {
-      types.add(type.id);
+      if (!types[type.id]) types[type.id] = [];
+      types[type.id].push(config.allow[category].name);
     }
   }
   return types;
 };
 
 export const filter = (
-  data: FeatureCollection<Point, Properties>,
-  types: Set<string>
-): FeatureCollection<Point> => {
-  return featureCollection(
-    data.features.filter(
-      ({ properties }) => properties.instance && types.has(properties.instance.split('/').pop())
-    )
-  );
+  data: AggregatedWikidata,
+  types: Record<string, string[]> | string[]
+): AggregatedWikidata => {
+  const filtered = {};
+  const typeKeys = new Set(Array.isArray(types) ? types : Object.keys(types));
+  Object.keys(data).forEach((code) => {
+    if (!Array.isArray(types)) data[code].categories = types[code];
+    if (typeKeys.has(code)) filtered[code] = data[code];
+  });
+  return filtered;
 };
