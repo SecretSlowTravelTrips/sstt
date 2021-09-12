@@ -6,6 +6,7 @@
   export let loading = false;
 
   const dispatch = createEventDispatcher();
+  let internLoading = false;
 
   let clicked = false;
   const click = () => {
@@ -13,6 +14,9 @@
     setTimeout(() => (clicked = false), 100);
     if (!disabled) return dispatch('click', name);
   };
+
+  $: if (clicked && disabled) internLoading = true;
+  $: if (!disabled) internLoading = false;
 </script>
 
 <button
@@ -21,7 +25,7 @@
   disabled={disabled || loading}
   on:click={click}
 >
-  {#if !loading}
+  {#if !loading && !internLoading}
     {#if isDown}
       {#if !disabled}
         <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

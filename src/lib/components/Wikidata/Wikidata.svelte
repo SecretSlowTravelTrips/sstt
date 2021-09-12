@@ -3,6 +3,7 @@
   import TypeDetails from './TypeDetails.svelte';
 
   export let wikiService;
+  export let loading = false;
 
   let prefLangs = ['fr', 'nl', 'en'];
   $: allowlist = $wikiService.context.allowlist;
@@ -19,12 +20,15 @@
   </FormGroup>
   <div class="my-2">
     <LoadButton
+      disabled={loading}
       isDown={false}
       on:click={() => wikiService.send('LOAD_DATA', { langs: prefLangs })}
       name="load-wikidata">Load</LoadButton
     >
-    <LoadButton on:click={() => wikiService.send('DOWNLOAD_DATA')} name="download-wikidata"
-      >Download</LoadButton
+    <LoadButton
+      disabled={loading}
+      on:click={() => wikiService.send('DOWNLOAD_DATA')}
+      name="download-wikidata">Download</LoadButton
     >
   </div>
 
@@ -38,6 +42,7 @@
             checked={allowlist[type].allow}
             label={$wikiService.context.data[type].name}
             on:change={() => wikiService.send('UPDATE_TYPE', { code: type })}
+            disabled={loading}
           />
         {/each}
       </div>

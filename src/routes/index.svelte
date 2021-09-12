@@ -30,6 +30,7 @@
   }
 
   $: if (files) send('FILE_UPLOAD', { file: files[0] });
+  $: loading = $state.hasTag('loading');
 </script>
 
 <main class="w-full h-full flex">
@@ -37,7 +38,7 @@
     <FormGroup>
       <FileInput bind:files />
     </FormGroup>
-    {#if $state.value === 'query'}
+    {#if $state.matches('query')}
       <FormGroup>
         <label for="radius">
           Radius (meters)
@@ -45,8 +46,8 @@
         </label>
         <small slot="help">Only values between 1 and 50000 are allowed</small>
       </FormGroup>
-      <Overpass overpassService={$overpassService} />
-      <Wikidata wikiService={$wikiService} />
+      <Overpass overpassService={$overpassService} {loading} />
+      <Wikidata wikiService={$wikiService} {loading} />
     {/if}
   </div>
   <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
