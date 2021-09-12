@@ -1,25 +1,25 @@
-import { AllGeoJSON, FeatureCollection, simplify } from '@turf/turf';
+import { FeatureCollection, Polygon, MultiPolygon, simplify } from '@turf/turf';
 import osmtogeojson from 'osmtogeojson';
-import { fileToGeoJSON, generateBuffer, exportToGeoJSONFile } from '$lib/util';
+import { exportToGeoJSONFile } from '$lib/util';
 import fetchOverpass from '$lib/util/overpass/fetchOverpass';
 
-export default async (file: File, overpassQuery: Array<any>, filename, radius = 1) => {
-  const createdGeoJson: FeatureCollection = await fileToGeoJSON(file);
-
-  const polygon = generateBuffer(createdGeoJson, radius);
-  console.log(polygon);
-
-  const simplifiedPolygon = simplify(polygon, {
+export default async (
+  buffer: FeatureCollection<Polygon | MultiPolygon>,
+  overpassQuery: Array<Record<string, string>>,
+  filename: string
+): Promise<void> => {
+  const simplifiedPolygon = simplify(buffer, {
     highQuality: true,
     mutate: false,
     tolerance: 0.05
   });
-  console.log(simplifiedPolygon);
 
   let polygonstring = '';
-  simplifiedPolygon.geometry.coordinates[0].map((coordinate) => {
-    polygonstring += coordinate[1] + ' ' + coordinate[0] + ' ';
-  });
+  simplifiedPolygon.features.forEach((feat) =>
+    feat.geometry.coordinates[0].forEach((coords) => {
+      polygonstring += coords[1] + ' ' + coords[0] + ' ';
+    })
+  );
   polygonstring = polygonstring.trimEnd();
 
   let middleQuery = '';
@@ -34,11 +34,8 @@ export default async (file: File, overpassQuery: Array<any>, filename, radius = 
   const query = `[out:json][timeout:150];(${middleQuery});(._;>;);out center;`;
 
   const data = await fetchOverpass(query);
-  console.log(data);
 
   const customGeoJSON = osmtogeojson(data);
-  console.log(customGeoJSON);
 
-  exportToGeoJSONFile(customGeoJSON, filename);
-  return;
+  exportToGeoJSONFile(<FeatureCollection>customGeoJSON, filename);
 };
