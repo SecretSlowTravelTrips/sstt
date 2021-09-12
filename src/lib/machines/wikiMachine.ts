@@ -112,6 +112,8 @@ export const wikiMachine = createMachine<WikiContext, WikidataEvent>(
       },
       download: {
         tags: ['loading'],
+        entry: sendParent('QUERYING'),
+        exit: sendParent('DONE_QUERYING'),
         invoke: {
           id: 'download-wikidata',
           src: downloadWikidata,
