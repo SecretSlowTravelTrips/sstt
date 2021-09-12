@@ -28,7 +28,7 @@
     >
   </div>
 
-  {#if $wikiService.matches('query.updateLists')}
+  {#if $wikiService.matches('updateLists')}
     <Details summary="Allowed" isTitle={false}>
       <div class="flex flex-wrap gap-1">
         {#each Object.keys(allowlist) as type (type)}

@@ -89,46 +89,41 @@ export const wikiMachine = createMachine<WikiContext, WikidataEvent>(
     states: {
       idle: {
         entry: ['initLangs', 'clearAllowlist'],
-        always: 'query'
-      },
-      query: {
-        states: {
-          load: {
-            tags: ['loading'],
-            invoke: {
-              id: 'fetch-wikidata',
-              src: fetchWikidata,
-              onDone: {
-                target: 'updateLists',
-                actions: [assign({ data: (_, event) => aggregate(event.data) }), 'fillAllowlist']
-              },
-              onError: {
-                target: '#wikidata.idle',
-                actions: assign({ error: (_, event) => event.data })
-              }
-            }
-          },
-          download: {
-            tags: ['loading'],
-            invoke: {
-              id: 'download-wikidata',
-              src: downloadWikidata,
-              onDone: {
-                target: 'updateLists'
-              },
-              onError: {
-                target: '#wikidata.idle',
-                actions: assign({ error: (_, event) => event.data })
-              }
-            }
-          },
-          updateLists: {
-            on: { DOWNLOAD_DATA: 'download', UPDATE_TYPE: { actions: 'updateType' } }
-          }
-        },
         on: {
-          LOAD_DATA: { target: '.load', actions: 'addLangs' }
+          LOAD_DATA: { target: 'load', actions: 'addLangs' }
         }
+      },
+      load: {
+        tags: ['loading'],
+        invoke: {
+          id: 'fetch-wikidata',
+          src: fetchWikidata,
+          onDone: {
+            target: 'updateLists',
+            actions: [assign({ data: (_, event) => aggregate(event.data) }), 'fillAllowlist']
+          },
+          onError: {
+            target: 'idle',
+            actions: assign({ error: (_, event) => event.data })
+          }
+        }
+      },
+      download: {
+        tags: ['loading'],
+        invoke: {
+          id: 'download-wikidata',
+          src: downloadWikidata,
+          onDone: {
+            target: 'updateLists'
+          },
+          onError: {
+            target: 'idle',
+            actions: assign({ error: (_, event) => event.data })
+          }
+        }
+      },
+      updateLists: {
+        on: { DOWNLOAD_DATA: 'download', UPDATE_TYPE: { actions: 'updateType' } }
       }
     }
   },
