@@ -5,6 +5,7 @@
   import { useMachine, useSelector } from '@xstate/svelte';
   import { appMachine } from '$lib/machines';
   import Overpass from '$lib/components/Overpass.svelte';
+  import Label from '$lib/components/UI/Label.svelte';
 
   const { state, send, service } = useMachine(appMachine);
   const wikiService = useSelector(service, (state) => state.children.wikiMachine);
@@ -40,10 +41,9 @@
     </FormGroup>
     {#if $state.matches('query')}
       <FormGroup>
-        <label for="radius">
-          Radius (meters)
+        <Label labelFor="radius" label="Radius (meters)">
           <Input type="number" id="radius" bind:value={radiusInM} max={maxRadius} />
-        </label>
+        </Label>
         <small slot="help">Only values between 1 and 50000 are allowed</small>
       </FormGroup>
       <Overpass overpassService={$overpassService} {loading} />
