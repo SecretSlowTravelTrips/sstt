@@ -1,20 +1,13 @@
 import SPARQLQueryDispatcher from './SPARQLQueryDispatcher';
 import buildQuery from './buildQuery';
 import toGeoJSON from './toGeoJSON';
-import {
-  bbox,
-  FeatureCollection,
-  MultiPolygon,
-  Point,
-  Polygon,
-  Properties,
-  within
-} from '@turf/turf';
+import { bbox, FeatureCollection, MultiPolygon, Point, Polygon, within } from '@turf/turf';
+import type Wikidata from './wikidata';
 
 export default async (
   buffer: FeatureCollection<Polygon | MultiPolygon>,
   langs: string[]
-): Promise<FeatureCollection<Point, Properties>> => {
+): Promise<FeatureCollection<Point, Wikidata>> => {
   const queryDispatcher = new SPARQLQueryDispatcher();
 
   const bbx = bbox(buffer);
