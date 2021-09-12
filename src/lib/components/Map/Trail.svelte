@@ -1,4 +1,6 @@
 <script lang="ts">
+  import center from '@turf/center';
+
   import type maplibregl from 'maplibre-gl';
 
   import { onDestroy, onMount, getContext } from 'svelte';
@@ -10,6 +12,11 @@
   const map: maplibregl.Map = getMap();
 
   onMount(() => {
+    const centre = center(trail).geometry.coordinates;
+    map.jumpTo({
+      center: [centre[0], centre[1]],
+      zoom: 10.5
+    });
     map.addSource('trail', {
       type: 'geojson',
       data: trail
@@ -19,8 +26,9 @@
       source: 'trail',
       type: 'line',
       paint: {
-        'line-width': 10,
-        'line-color': 'indigo'
+        'line-width': 7,
+        'line-color': 'indigo',
+        'line-opacity': 0.7
       }
     });
   });
