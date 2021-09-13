@@ -1,5 +1,6 @@
 <script lang="ts">
   import center from '@turf/center';
+  import type { GeoJSONSource } from 'maplibre-gl';
 
   import type maplibregl from 'maplibre-gl';
 
@@ -10,6 +11,8 @@
 
   const { getMap } = getContext(key);
   const map: maplibregl.Map = getMap();
+
+  $: if (map.getSource('trail')) (map.getSource('trail') as GeoJSONSource).setData(trail);
 
   onMount(() => {
     const centre = center(trail).geometry.coordinates;
