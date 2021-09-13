@@ -7,6 +7,7 @@
   import Overpass from '$lib/components/Overpass.svelte';
   import Label from '$lib/components/UI/Label.svelte';
   import Buffer from '$lib/components/Map/Buffer.svelte';
+  import WikidataLayer from '$lib/components/Map/WikidataLayer.svelte';
 
   const { state, send, service } = useMachine(appMachine);
   const wikiService = useSelector(service, (state) => state.children.wikiMachine);
@@ -20,6 +21,7 @@
   let radiusInM = 1000;
   let radiusInKm: number;
   let timeoutID;
+  let wikidataLayer;
 
   const maxRadius = 50000;
 
@@ -54,7 +56,7 @@
         <small slot="help">Only values between 1 and 50000 are allowed</small>
       </FormGroup>
       <Overpass overpassService={$overpassService} {loading} />
-      <Wikidata wikiService={$wikiService} {loading} />
+      <Wikidata wikiService={$wikiService} {loading} {wikidataLayer} />
     {/if}
   </div>
   <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
@@ -64,5 +66,6 @@
     {#if $state.context.buffer}
       <Buffer buffer={$state.context.buffer} />
     {/if}
+    <WikidataLayer bind:this={wikidataLayer} />
   </Map>
 </main>

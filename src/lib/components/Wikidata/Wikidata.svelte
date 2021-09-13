@@ -4,9 +4,13 @@
 
   export let wikiService;
   export let loading = false;
+  export let wikidataLayer;
 
   let prefLangs = ['fr', 'nl', 'en'];
   $: allowlist = $wikiService.context.allowlist;
+  $: if ($wikiService && wikidataLayer && $wikiService.context.data) {
+    wikidataLayer.update($wikiService.context.data);
+  }
 </script>
 
 <Details summary="Wikidata">
