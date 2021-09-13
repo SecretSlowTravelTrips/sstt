@@ -6,6 +6,7 @@
   import { appMachine } from '$lib/machines';
   import Overpass from '$lib/components/Overpass.svelte';
   import Label from '$lib/components/UI/Label.svelte';
+  import Buffer from '$lib/components/Map/Buffer.svelte';
 
   const { state, send, service } = useMachine(appMachine);
   const wikiService = useSelector(service, (state) => state.children.wikiMachine);
@@ -53,6 +54,9 @@
   <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
     {#if $state.context.geojson}
       <Trail trail={$state.context.geojson} />
+    {/if}
+    {#if $state.context.buffer}
+      <Buffer buffer={$state.context.buffer} />
     {/if}
   </Map>
 </main>
