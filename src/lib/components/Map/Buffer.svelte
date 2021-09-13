@@ -12,7 +12,6 @@
   const map: maplibregl.Map = getMap();
 
   $: if (map.getSource('buffer')) {
-    console.log('hello');
     (map.getSource('buffer') as GeoJSONSource).setData(buffer);
   }
 
