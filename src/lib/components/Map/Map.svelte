@@ -29,6 +29,10 @@
     );
   };
 
+  export const invalidateSize = () => {
+    map.resize();
+  };
+
   setContext(key, {
     getMap: () => map
   });
