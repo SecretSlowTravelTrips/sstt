@@ -2,6 +2,9 @@
   import { fade } from 'svelte/transition';
   import type { AggregatedSingleWikiData } from '$lib/util/wikidata/aggregate';
   import CheckButton from '../UI/CheckButton.svelte';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   export let label: string;
   export let disabled = false;
@@ -10,12 +13,16 @@
   export let type: string;
 
   let show = false;
+  const handleClick = () => {
+    show = !show;
+    dispatch('click', { show });
+  };
 </script>
 
 <div class:show class="flex flex-col">
   <div class="{checked ? 'bg-green-300' : 'bg-gray-100'} flex items-center">
     <CheckButton bind:checked {label} on:change {disabled} />
-    <button on:click={() => (show = !show)} class="flex-shrink">
+    <button on:click={handleClick} class="flex-shrink">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6 ml-1 mr-2 hover:text-gray-500 text-gray-700"

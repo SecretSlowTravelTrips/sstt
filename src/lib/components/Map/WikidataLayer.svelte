@@ -96,7 +96,15 @@
     previous = types;
   }
 
-  export function highlight(code: string) {}
+  export function highlight(code: string) {
+    map.setPaintProperty(code, 'circle-radius', 10);
+    map.setPaintProperty(code, 'circle-color', '#FBBF24');
+    map.moveLayer(code);
+  }
+  export function lowlight(code: string) {
+    map.setPaintProperty(code, 'circle-radius', 7);
+    map.setPaintProperty(code, 'circle-color', undefined);
+  }
 
   onDestroy(() => {
     previous && destroyAll(previous);

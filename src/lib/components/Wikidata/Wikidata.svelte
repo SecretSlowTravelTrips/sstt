@@ -11,6 +11,11 @@
   $: if ($wikiService && wikidataLayer && $wikiService.context.data) {
     wikidataLayer.update($wikiService.context.data);
   }
+
+  const handleClick = (e, type: string) => {
+    if (e.detail.show) return wikidataLayer.highlight(type);
+    wikidataLayer.lowlight(type);
+  };
 </script>
 
 <Details summary="Wikidata">
@@ -47,6 +52,7 @@
             label={$wikiService.context.data[type].name}
             on:change={() => wikiService.send('UPDATE_TYPE', { code: type })}
             disabled={loading}
+            on:click={(e) => handleClick(e, type)}
           />
         {/each}
       </div>
