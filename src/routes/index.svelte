@@ -38,12 +38,18 @@
 <main class="w-full h-full flex">
   <div class="w-60 md:w-96 flex flex-col p-2 max-h-full overflow-y-auto flex-shrink-0">
     <FormGroup>
-      <FileInput bind:files />
+      <FileInput bind:files disabled={loading} />
     </FormGroup>
     {#if $state.matches('query')}
       <FormGroup>
         <Label labelFor="radius" label="Radius (meters)">
-          <Input type="number" id="radius" bind:value={radiusInM} max={maxRadius} />
+          <Input
+            type="number"
+            id="radius"
+            bind:value={radiusInM}
+            max={maxRadius}
+            disabled={loading}
+          />
         </Label>
         <small slot="help">Only values between 1 and 50000 are allowed</small>
       </FormGroup>

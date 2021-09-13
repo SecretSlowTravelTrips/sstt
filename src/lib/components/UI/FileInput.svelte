@@ -2,10 +2,12 @@
   import Label from './Label.svelte';
 
   export let files: FileList;
+  export let disabled = false;
 </script>
 
 <Label label="Upload your trail">
   <input
+    {disabled}
     type="file"
     accept=".geojson,.gpx"
     bind:files
