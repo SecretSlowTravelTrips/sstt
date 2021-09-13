@@ -26,7 +26,7 @@
       name="load-wikidata">Load</LoadButton
     >
     <LoadButton
-      disabled={loading}
+      disabled={loading || !$wikiService.matches('updateLists')}
       on:click={() => wikiService.send('DOWNLOAD_DATA')}
       name="download-wikidata">Download</LoadButton
     >
@@ -38,7 +38,7 @@
         {#each Object.keys(allowlist) as type (type)}
           <TypeDetails
             {type}
-            details={{ ...$wikiService.context.data[type], features: [] }}
+            details={{ ...$wikiService.context.data[type], fc: undefined }}
             checked={allowlist[type].allow}
             label={$wikiService.context.data[type].name}
             on:change={() => wikiService.send('UPDATE_TYPE', { code: type })}

@@ -45,7 +45,7 @@ const downloadWikidata = (context: WikiContext) =>
       exportToGeoJSONFile(
         featureCollection(
           Object.values(filter(context.data, allowedTypes)).reduce(
-            (acc, curr) => acc.concat(curr.features),
+            (acc, curr) => acc.concat(curr.fc.features),
             []
           )
         ),
