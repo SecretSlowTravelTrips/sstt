@@ -37,35 +37,42 @@
   $: loading = $state.hasTag('loading');
 </script>
 
-<main class="w-full h-full flex">
-  <div class="w-60 md:w-96 flex flex-col p-2 max-h-full overflow-y-auto flex-shrink-0">
-    <FormGroup>
-      <FileInput bind:files disabled={loading} />
-    </FormGroup>
-    {#if $state.matches('query')}
+<main class="w-full h-full flex flex-col">
+  <header class="w-full h-20 border-b shadow px-2">
+    <h1 class="text-4xl font-bold">sstt</h1>
+    <!-- svelte-ignore a11y-unknown-role -->
+    <div role="doc-subtitle" class="italic text-gray-700 text-sm">query service</div>
+  </header>
+  <div class="flex w-full h-full">
+    <div class="w-60 md:w-96 flex flex-col p-2 max-h-full overflow-y-auto flex-shrink-0">
       <FormGroup>
-        <Label labelFor="radius" label="Radius (meters)">
-          <Input
-            type="number"
-            id="radius"
-            bind:value={radiusInM}
-            max={maxRadius}
-            disabled={loading}
-          />
-        </Label>
-        <small slot="help">Only values between 1 and 50000 are allowed</small>
+        <FileInput bind:files disabled={loading} />
       </FormGroup>
-      <Overpass overpassService={$overpassService} {loading} />
-      <Wikidata wikiService={$wikiService} {loading} {wikidataLayer} />
-    {/if}
+      {#if $state.matches('query')}
+        <FormGroup>
+          <Label labelFor="radius" label="Radius (meters)">
+            <Input
+              type="number"
+              id="radius"
+              bind:value={radiusInM}
+              max={maxRadius}
+              disabled={loading}
+            />
+          </Label>
+          <small slot="help">Only values between 1 and 50000 are allowed</small>
+        </FormGroup>
+        <Overpass overpassService={$overpassService} {loading} />
+        <Wikidata wikiService={$wikiService} {loading} {wikidataLayer} />
+      {/if}
+    </div>
+    <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
+      {#if $state.context.geojson}
+        <Trail trail={$state.context.geojson} />
+      {/if}
+      {#if $state.context.buffer}
+        <Buffer buffer={$state.context.buffer} />
+      {/if}
+      <WikidataLayer bind:this={wikidataLayer} />
+    </Map>
   </div>
-  <Map initialLat={center.lat} initialLon={center.lon} initialZoom={7}>
-    {#if $state.context.geojson}
-      <Trail trail={$state.context.geojson} />
-    {/if}
-    {#if $state.context.buffer}
-      <Buffer buffer={$state.context.buffer} />
-    {/if}
-    <WikidataLayer bind:this={wikidataLayer} />
-  </Map>
 </main>
