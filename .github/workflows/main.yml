@@ -6,6 +6,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: github-pages
+    env:
+      VITE_MAPBOX_ACCESS_TOKEN: ${{secrets.VITE_MAPBOX_ACCESS_TOKEN}}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
