@@ -15,9 +15,9 @@ export default (
   const ignoreNoWikipedia = true;
 
   return `
-  SELECT ?place ?location ?placeLabel ?instance ?instanceLabel ?image ${Object.keys(wikiArticles).join(
-    ' '
-  )} ?prefArticle WHERE {
+  SELECT ?place ?location ?placeLabel ?instance ?instanceLabel ?image ${Object.keys(
+    wikiArticles
+  ).join(' ')} ?prefArticle ?linkcount WHERE {
     SERVICE wikibase:box {
       ?place wdt:P625 ?location .
       bd:serviceParam wikibase:cornerWest "Point(${westCorner[0]} ${
@@ -27,6 +27,7 @@ export default (
     eastCorner[1]
   })"^^geo:wktLiteral .
       }
+    ?place wikibase:sitelinks ?linkcount;
     OPTIONAL {
       ?place wdt:P31 ?instance.
     }

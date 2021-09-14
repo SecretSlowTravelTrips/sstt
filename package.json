@@ -13,12 +13,17 @@
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.0-next.16",
     "@sveltejs/kit": "next",
+    "@tailwindcss/forms": "^0.3.3",
+    "@tmcw/togeojson": "^4.5.0",
+    "@turf/turf": "^6.5.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "autoprefixer": "^10.3.3",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-svelte3": "^3.2.0",
+    "maplibre-gl": "^1.15.2",
+    "osmtogeojson": "^3.0.0-beta.4",
     "postcss": "^8.3.6",
     "postcss-load-config": "^3.1.0",
     "prettier": "~2.2.1",
@@ -28,13 +33,8 @@
     "svelte-preprocess": "^4.0.0",
     "tailwindcss": "^2.2.7",
     "tslib": "^2.0.0",
-    "typescript": "^4.0.0"
+    "typescript": "^4.0.0",
+    "xstate": "^4.23.3"
   },
-  "type": "module",
-  "dependencies": {
-    "@tmcw/togeojson": "^4.5.0",
-    "@turf/turf": "^6.5.0",
-    "maplibre-gl": "^1.15.2",
-    "osmtogeojson": "^3.0.0-beta.4"
-  }
+  "type": "module"
 }

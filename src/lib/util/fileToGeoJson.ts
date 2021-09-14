@@ -1,7 +1,7 @@
 import { gpx } from '@tmcw/togeojson';
-import type { AllGeoJSON } from '@turf/turf';
+import type { FeatureCollection } from '@turf/turf';
 
-export default (file: File): Promise<AllGeoJSON> => {
+export default (file: File): Promise<FeatureCollection> => {
   return new Promise((resolve, reject) => {
     const fileExtension = file.name.split('.').pop();
 
